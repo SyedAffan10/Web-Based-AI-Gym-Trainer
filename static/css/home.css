@@ -1,0 +1,40 @@
+.home {
+  min-height: 100vh;
+  background-image: url("../picture.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 15px;
+}
+
+.full-screen {
+  min-height: 100vh;
+}
+.home-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.block {
+  flex: 0 0 75%;
+  max-width: 75%;
+  color: rgb(255, 255, 255);
+  padding-left: 35px;
+  border-left: 3px solid rgb(255, 255, 255);
+  margin-top: 50px;
+}
+.block h1 {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.block h6 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
