@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from gtts import gTTS
-from playsound import  playsound
+from playsound import playsound
 from flask import Flask, render_template
 
 mp_drawing = mp.solutions.drawing_utils
@@ -37,7 +37,6 @@ def index():
 @app.route('/curl', methods=['GET'])
 def curl():
     cv2.destroyAllWindows()
-
     cap = cv2.VideoCapture(0)
 
     # Curl counter variables
@@ -92,12 +91,12 @@ def curl():
                 if angle < 30 and stage =='down':
                     stage="up"
                     counter +=1
-                    # mytext=str(counter)
-                    # language='en'
-                    # myobj=gTTS(text=mytext,lang=language,slow=True)
-                    # myobj.save("welcome1.mp3")
-                    # playsound("welcome1.mp3")
-                    # myobj.save("welcome"+str(counter)+".mp3")
+                    mytext=str(counter)
+                    language='en'
+                    myobj=gTTS(text=mytext,lang=language,slow=True)
+                    myobj.save("welcome1.mp3")
+                    playsound("welcome1.mp3")
+                    myobj.save("welcome"+str(counter)+".mp3")
                     playsound("welcome"+str(counter)+".mp3")
                     print(counter)      
             except:
@@ -139,7 +138,6 @@ def curl():
 @app.route('/deadlift', methods=['GET'])
 def deadlift():
     cv2.destroyAllWindows()
-
     cap = cv2.VideoCapture(0)
 
     # Deadlift counter variables
@@ -184,10 +182,10 @@ def deadlift():
                 if stage=="down" and checkDeadlift(left_hand,right_hand,left_knee,right_knee,checkUp=True):
                     stage="up"
                     counter+=1
-                    # mytext=str(counter)
-                    # language='en'
-                    # myobj=gTTS(text=mytext,lang=language,slow=True)
-                    # myobj.save("welcome"+str(counter)+".mp3")
+                    mytext=str(counter)
+                    language='en'
+                    myobj=gTTS(text=mytext,lang=language,slow=True)
+                    myobj.save("welcome"+str(counter)+".mp3")
                     playsound("welcome"+str(counter)+".mp3")
                     print(counter)            
             except:
@@ -229,12 +227,12 @@ def checkDeadlift(a,b,c,d,checkUp=False):
     if c.visibility>0.5 and d.visibility>0.5:
         print("Visible")
         if checkUp==True:
-            if a.y<c.y and b.y<d.y:
+            if (a.y)<(c.y) and (b.y)<(d.y):
                 return True
             else:
                 return False
         else:
-            if a.y>c.y and b.y>d.y:
+            if (a.y)>(c.y) and (b.y)>(d.y):
                 return True
             else:
                 return False
@@ -291,10 +289,10 @@ def squat():
                 if stage=="down" and checkSquat(left_hip,right_hip,left_knee,right_knee,checkUp=True):
                     stage="up"
                     counter+=1
-                    # mytext=str(counter)
-                    # language='en'
-                    # myobj=gTTS(text=mytext,lang=language,slow=True)
-                    # myobj.save("welcome"+str(counter)+".mp3")
+                    mytext=str(counter)
+                    language='en'
+                    myobj=gTTS(text=mytext,lang=language,slow=True)
+                    myobj.save("welcome"+str(counter)+".mp3")
                     playsound("welcome"+str(counter)+".mp3")
                     print(counter)     
             except:
@@ -331,26 +329,25 @@ def squat():
         cv2.destroyAllWindows()
 
 def checkSquat(a,b,c,d,checkUp=False):
-    if a.visibilty>0.4 and b.visibility>0.4 and c.visibility>0.4 and d.visibility>0.4:
-        print("visible")
+    if (a.visibilty)>(0.4) and (b.visibility)>(0.4) and (c.visibility)>(0.4) and (d.visibility)>(0.4):
+        print("Visible")
         # Cup20=c.y+c.y*0.2
-        Cdown30=c.y-c.y*0.6
+        Cdown30 = (c.y)-((c.y)*0.6)
         # Dup20=d.y+d.y*0.2
-        Ddown30=d.y-d.y*0.6
-        if checkUp==True:
-            if a.y<Cdown30 and b.y<Ddown30:
+        Ddown30 = (d.y)-((d.y)*0.6)
+        if checkUp == True:
+            if (a.y)<(Cdown30) and (b.y)<(Ddown30):
                 return True
             else:
                 return False
         else:
-            if a.y>Cdown30 and b.y>Ddown30:
+            if (a.y)>(Cdown30) and (b.y)>(Ddown30):
                 return True
             else:
                 return False
     else:
         print("Not Visible")
         return False
-
 
 if __name__ == '__main__':
     app.run(debug=True)
